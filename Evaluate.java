@@ -274,6 +274,12 @@ class Evaluate{
 		}
 		return false;
 	}
+	public String atom(Lista l){
+		if(l.getElemAt(0).isToken()){
+			return "T";
+		}
+		return "NILS";
+	}
 
 	public String atom(Lista l){
 		if(l.getElemAt(0).isToken()){

@@ -92,9 +92,12 @@ class Parse{
 
 			case "atom":
 				return "atom";
+<<<<<<< HEAD
 
 			case "listp":
 				return "listp";
+=======
+>>>>>>> 8520793eb433265fa34bfde15080372cd90bcf4b
 
 			case "setq":
 				if(verSetq(l)){
