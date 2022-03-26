@@ -1,8 +1,26 @@
 import java.util.HashMap;
 import java.util.ArrayList;
 
+/*
+ * Universidad del Valle de Guatemala
+ * Proyecto de Algoritmos y Estructuras de Datos
+ * Seccion 20, 2022
+ * Interprete de Lisp en Java
+ * 
+ * @author Andrea Ximena Ramirez Recinos 21874
+ * @author Adrian Ricardo Flores Trujillo 21500
+ * @author Sebastian José Solorzano Pérez 21826
+ * @version 22/03/2022
+ * 
+ * Clase Parse para determinar si la sintaxis de las instrucciones es correcta
+ */
+
 class Parse{
 
+	/** Metodo para transformar las lineas de codigo en listas 
+	 * @param a, expresion a evaluar de las lineas de codigo
+	 * @return Lista
+	 */
 	public Lista toLista(String a){
 		boolean modo = false, activo = false, flag = true, activo2 = false;
 		String inst = "", exp = "";
@@ -17,7 +35,6 @@ class Parse{
 				if(Character.compare(a.charAt(i), "[".charAt(0)) == 0){
 					index2 = i;
 				} else if(Character.compare(a.charAt(i), "]".charAt(0)) == 0){
-					//System.out.println(a.substring(index2, i+1));
 					elems.add(new Token(a.substring(index2, i+1)));
 					activo2 = false;
 				}
@@ -59,12 +76,10 @@ class Parse{
 				} else {
 					if(!exp.equals("")){
 						if(flag){
-							//System.out.println("Instruccion: " + exp);
 							inst = exp;
 							flag = false;
 					
 						} else {
-							//System.out.println("Token: " + exp);
 							elems.add(new Token(exp));
 						}
 						exp = "";
@@ -72,13 +87,16 @@ class Parse{
 				} 
 			}
 		}
-		//System.out.println(new Lista(new Token(inst), elems));
 		return new Lista(new Token(inst), elems);
 
 	}
 
+	/** Establece que instruccion se esta pasando para aplicarla en el Main
+	 * @param l, linea de codigo en forma de lista
+	 * @param eval, objeto de tipo eval
+	 * @return String
+	 */
 	public String verifyLInst(Lista l, Evaluate eval){
-		//System.out.println(l.getInst().toLowerCase());
 		switch(l.getInst().toLowerCase()){
 
 			case "list":
@@ -141,6 +159,10 @@ class Parse{
 		return "anf";
 	}
 
+	/** Determina si la sintaxis de Setq es la correcta 
+	 * @param l, linea de codigo en forma de lista
+	 * @return boolean
+	 */
 	public boolean verSetq(Lista l){
 		if(l.getElemAt(0).isToken()){
 			if(l.getElemAt(1).isToken()){
@@ -157,6 +179,10 @@ class Parse{
 		return false;
 	}
 
+	/** Determina si la sintaxis de print es la correcta 
+	 * @param l, linea de codigo en forma de lista
+	 * @return boolean
+	 */
 	public boolean verPrint(Lista l){
 		if(l.getElemAt(0).isToken() && l.getElems().size() == 1){
 			String temp = l.getElemAt(0).toString();
@@ -172,6 +198,10 @@ class Parse{
 		return true;
 	}
 
+	/** Determina si la sintaxis de defun es la correcta 
+	 * @param l, linea de codigo en forma de lista
+	 * @return boolean
+	 */
 	public boolean verDefun(Lista l){
 		if(l.getElemAt(0).isToken() && l.getElemAt(1).isToken()){
 			if(l.getElemAt(1).toString().charAt(0) == '[' && l.getElemAt(1).toString().charAt(l.getElemAt(1).toString().length()-1) == ']'){
@@ -194,6 +224,10 @@ class Parse{
 		return false;
 	}
 
+	/** Determina si la sintaxis de list es la correcta 
+	 * @param l linea de codigo en forma de lista
+	 * @return boolean
+	 */
 	public boolean evaluarLista(Lista l){
 		if(l.getElemAt(0).isToken()){
 			String evaluacionSintaxis = l.getElemAt(0).toString();
@@ -205,6 +239,11 @@ class Parse{
 		return false;
 	}
 
+	/**
+	 * Determina si la sintaxis de cond es correcta
+	 * @param l linea de codigo en forma de lista
+	 * @return boolean
+	 */ 
 	public boolean verCond(Lista l){
 		if(!l.getElemAt(0).isToken()){
 			if(l.getElemAt(0).toLista().getInst().charAt(0) == '(' && l.getElemAt(0).toLista().getInst().charAt(l.getElemAt(0).toLista().getInst().length() - 1) == ')'){
@@ -216,6 +255,11 @@ class Parse{
 		return false;
 	}
 
+	/**
+	 * Determina si la sintaxis de Equal es correcta
+	 * @param l linea de codigo en forma de lista
+	 * @return boolean
+	 */ 
 	public boolean verEqual(Lista l){
 		if(l.getElems().size() == 2){
 			return true;

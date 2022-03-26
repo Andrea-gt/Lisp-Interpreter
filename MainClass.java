@@ -56,7 +56,7 @@ class MainClass {
 						System.out.println(eval.getVars());
 						break;
 
-					case "a":
+					case "a": //Operaciones aritmeticas
 						System.out.println(eval.operacionAritmetica(inst));
 						break;
 
@@ -119,7 +119,7 @@ class MainClass {
 						System.out.println(eval.getVars());
 						break;
 
-					case "a":
+					case "a": //Operaciones aritmeticas
 						System.out.println(eval.operacionAritmetica(inst));
 						break;
 
@@ -156,6 +156,7 @@ class MainClass {
 						break;
 
 					default:
+						//Verificar si la instruccion es una funcion ya definida por el usuario
 						if(eval.getFunciones().containsKey(inst.getInst())){
 							System.out.println(eval.execFunc(inst.getInst(), eval.getParams(new Token(inst.getElemAt(0).toString()))));
 						} else {
