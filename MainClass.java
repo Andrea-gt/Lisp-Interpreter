@@ -144,7 +144,7 @@ class MainClass {
 						break;
 					
 					case "atom":
-						eval.atom(inst);
+						System.out.println(eval.atom(inst));
 						break;
 
 					case "listp":
