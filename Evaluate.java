@@ -30,7 +30,6 @@ class Evaluate{
 				}
 			} 
 			else {
-				//FALTA VERIFICAR SI EXISTE LA FUNCION PERO TODAVIA NO SÉ CREAR FUNCIONES :DDDDD
 				vars.put(l.getElemAt(0).toString(), operacionAritmetica(l.getElemAt(1).toLista()));
 			}
 		}
@@ -192,7 +191,7 @@ class Evaluate{
 		}
 
 		for(Lista l : instrucciones){
-			System.out.println(l);
+			//System.out.println(l);
 			switch(parser.verifyLInst(l, this)){
 				case "setq":
 					eval.setq(l);
@@ -274,6 +273,20 @@ class Evaluate{
 				return Math.round(operandos.get(0)) > Math.round(operandos.get(1));
 		}
 		return false;
+	}
+
+	public String atom(Lista l){
+		if(l.getElemAt(0).isToken()){
+			return "T";
+		}
+		return "NIL";
+	}
+
+	public String listp(Lista l){
+		if(l.getElemAt(0).isToken()){
+			return "NIL";
+		}
+		return "T";
 	}
 
 	public String cond(Lista l){

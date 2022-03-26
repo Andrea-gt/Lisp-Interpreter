@@ -2,6 +2,20 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/*
+ * Universidad del Valle de Guatemala
+ * Proyecto de Algoritmos y Estructuras de Datos
+ * Seccion 20, 2022
+ * Interprete de Lisp en Java
+ * 
+ * @author Andrea Ximena Ramirez Recinos 21874
+ * @author Adrian Ricardo Flores Trujillo 21500
+ * @author Sebastian José Solorzano Pérez 21826
+ * @version 22/03/2022
+ * 
+ * Clase Main
+ */
+
 class MainClass {
 
 	public static void main(String[] args) {
@@ -12,9 +26,78 @@ class MainClass {
 		Parse parser = new Parse();
 		
 		System.out.println("Bienvenido al interprete de Lisp");
-		System.out.println("Por favor, ingese el nombre de su archivo (ej:Ejemplo.lisp)");
+		System.out.println("Por favor, ingrese el nombre de su archivo (ej:Ejemplo.txt)");
+		System.out.println("Para ingresar lineas de codigo en tiempo real, ingrese 'demo'");
 		
 		String file_name = sn.nextLine();
+
+		//Si 
+		if(file_name.equals("demo")){
+			while(true){
+
+				System.out.println();
+				String linea = "";
+				//Verificar que la entrada sea valida para evitar ArrayIndexOutOfBoundsException
+				while(true){
+					linea = sn.nextLine();
+					if(!linea.equals("")){
+						break;
+					}
+				}
+				
+				linea = linea.substring(1, linea.length()-1);
+
+				Lista inst = parser.toLista(linea);
+				System.out.println();
+
+				switch(parser.verifyLInst(inst, eval)){
+					case "setq":
+						eval.setq(inst);
+						System.out.println(eval.getVars());
+						break;
+
+					case "a":
+						System.out.println(eval.operacionAritmetica(inst));
+						break;
+
+					case "print":
+						System.out.println(eval.print(inst));
+						break;
+
+					case "list":
+						System.out.println(eval.lista(inst));
+						break;
+
+					case "defun":
+						eval.defun(inst);
+						break;
+					
+					case "quote":
+						System.out.println(linea.replace("quote", ""));
+						break;
+
+					case "cond":
+						eval.cond(inst);
+						break;
+
+					case "atom":
+						System.out.println(eval.atom(inst));
+						break;
+
+					case "listp":
+						System.out.println(eval.listp(inst));
+						break;
+
+					default:
+						if(eval.getFunciones().containsKey(inst.getInst())){
+							System.out.println(eval.execFunc(inst.getInst(), eval.getParams(new Token(inst.getElemAt(0).toString()))));
+						} else {
+							System.out.println("Error en la instruccion");
+						}
+				}
+
+			}
+		}
 		
 		//Lectura de lineas de codigo de archivo Lisp
 		try {
@@ -22,7 +105,7 @@ class MainClass {
 			CodeLines = reader.readingFile(file_name);
 			for(String s : CodeLines){
 
-				System.out.println("(" + s + ")");
+				System.out.println("\n(" + s + ")\n");
 
 				Lista inst = parser.toLista(s);
 
@@ -55,12 +138,20 @@ class MainClass {
 					case "cond":
 						eval.cond(inst);
 						break;
+					
+					case "atom":
+						eval.atom(inst);
+						break;
+
+					case "listp":
+						System.out.println(eval.listp(inst));
+						break;
 
 					default:
 						if(eval.getFunciones().containsKey(inst.getInst())){
 							System.out.println(eval.execFunc(inst.getInst(), eval.getParams(new Token(inst.getElemAt(0).toString()))));
 						} else {
-							System.out.println("afjnanñfo");
+							System.out.println("Error en la instruccion");
 						}
 				}
 			}

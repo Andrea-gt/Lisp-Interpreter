@@ -17,7 +17,7 @@ class Parse{
 				if(Character.compare(a.charAt(i), "[".charAt(0)) == 0){
 					index2 = i;
 				} else if(Character.compare(a.charAt(i), "]".charAt(0)) == 0){
-					System.out.println(a.substring(index2, i+1));
+					//System.out.println(a.substring(index2, i+1));
 					elems.add(new Token(a.substring(index2, i+1)));
 					activo2 = false;
 				}
@@ -43,7 +43,7 @@ class Parse{
 			} else if(Character.compare(a.charAt(i), ")".charAt(0)) == 0){
 				cont--;
 				if(cont == 0){
-					System.out.println(a.substring(index+1, i));
+					//System.out.println(a.substring(index+1, i));
 					elems.add(toLista(a.substring(index+1, i)));
 					activo = false;
 				}
@@ -78,7 +78,7 @@ class Parse{
 	}
 
 	public String verifyLInst(Lista l, Evaluate eval){
-		System.out.println(l.getInst().toLowerCase());
+		//System.out.println(l.getInst().toLowerCase());
 		switch(l.getInst().toLowerCase()){
 
 			case "list":
@@ -86,11 +86,15 @@ class Parse{
 					return "list";
 				}
 				break;
-
-			
+		
 			case "quote":
 				return "quote";
 
+			case "atom":
+				return "atom";
+
+			case "listp":
+				return "listp";
 
 			case "setq":
 				if(verSetq(l)){
@@ -159,7 +163,7 @@ class Parse{
 
 		}
 		System.out.println("????");
-		return false;
+		return true;
 	}
 
 	public boolean verDefun(Lista l){
@@ -205,5 +209,6 @@ class Parse{
 		}
 		return false;
 	}
+
 }
 
