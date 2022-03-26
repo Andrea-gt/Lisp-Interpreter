@@ -92,12 +92,9 @@ class Parse{
 
 			case "atom":
 				return "atom";
-<<<<<<< HEAD
 
 			case "listp":
 				return "listp";
-=======
->>>>>>> 8520793eb433265fa34bfde15080372cd90bcf4b
 
 			case "setq":
 				if(verSetq(l)){
@@ -126,6 +123,12 @@ class Parse{
 			case "cond":
 				if(verCond(l)){
 					return "cond";
+				}
+				break;
+
+			case "equal":
+				if(verEqual(l)){
+					return "equal";
 				}
 				break;
 
@@ -211,6 +214,14 @@ class Parse{
 			}
 		}
 		return false;
+	}
+
+	public boolean verEqual(Lista l){
+		if(l.getElems().size() == 2){
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

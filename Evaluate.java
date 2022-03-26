@@ -274,12 +274,6 @@ class Evaluate{
 		}
 		return false;
 	}
-	public String atom(Lista l){
-		if(l.getElemAt(0).isToken()){
-			return "T";
-		}
-		return "NILS";
-	}
 
 	public String atom(Lista l){
 		if(l.getElemAt(0).isToken()){
@@ -293,6 +287,10 @@ class Evaluate{
 			return "NIL";
 		}
 		return "T";
+	}
+
+	public boolean equal(Lista l){
+		return l.getElemAt(0).toString().equals(l.getElemAt(1).toString());
 	}
 
 	public String cond(Lista l){

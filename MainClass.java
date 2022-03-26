@@ -31,7 +31,6 @@ class MainClass {
 		
 		String file_name = sn.nextLine();
 
-<<<<<<< HEAD
 		//Si 
 		if(file_name.equals("demo")){
 			while(true){
@@ -46,12 +45,6 @@ class MainClass {
 					}
 				}
 				
-=======
-		if(file_name.equals("prueba")){
-			while(true){
-				System.out.println();
-				String linea = sn.nextLine();
->>>>>>> 8520793eb433265fa34bfde15080372cd90bcf4b
 				linea = linea.substring(1, linea.length()-1);
 
 				Lista inst = parser.toLista(linea);
@@ -87,7 +80,6 @@ class MainClass {
 						eval.cond(inst);
 						break;
 
-<<<<<<< HEAD
 					case "atom":
 						System.out.println(eval.atom(inst));
 						break;
@@ -96,8 +88,10 @@ class MainClass {
 						System.out.println(eval.listp(inst));
 						break;
 
-=======
->>>>>>> 8520793eb433265fa34bfde15080372cd90bcf4b
+					case "equal":
+						System.out.println(eval.equal(inst));
+						break;
+
 					default:
 						if(eval.getFunciones().containsKey(inst.getInst())){
 							System.out.println(eval.execFunc(inst.getInst(), eval.getParams(new Token(inst.getElemAt(0).toString()))));
@@ -109,7 +103,7 @@ class MainClass {
 			}
 		}
 		
-		//Lectura de lineas de codigo de archivo Lisp
+		//Lectura de lineas de codigo de archivo .lisp o .txt
 		try {
 
 			CodeLines = reader.readingFile(file_name);
@@ -152,13 +146,14 @@ class MainClass {
 					case "atom":
 						eval.atom(inst);
 						break;
-<<<<<<< HEAD
 
 					case "listp":
 						System.out.println(eval.listp(inst));
 						break;
-=======
->>>>>>> 8520793eb433265fa34bfde15080372cd90bcf4b
+
+					case "equal":
+						System.out.println(eval.equal(inst));
+						break;
 
 					default:
 						if(eval.getFunciones().containsKey(inst.getInst())){
