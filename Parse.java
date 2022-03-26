@@ -91,6 +91,8 @@ class Parse{
 			case "quote":
 				return "quote";
 
+			case "atom":
+				return "atom";
 
 			case "setq":
 				if(verSetq(l)){
@@ -205,5 +207,6 @@ class Parse{
 		}
 		return false;
 	}
+
 }
 

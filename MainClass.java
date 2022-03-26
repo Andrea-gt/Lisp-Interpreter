@@ -105,6 +105,10 @@ class MainClass {
 					case "cond":
 						eval.cond(inst);
 						break;
+					
+					case "atom":
+						eval.atom(inst);
+						break;
 
 					default:
 						if(eval.getFunciones().containsKey(inst.getInst())){
